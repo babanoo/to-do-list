@@ -8,7 +8,8 @@ const darkText = document.querySelectorAll(".color-dark-gray");
 
 const tasksWrapper = document.querySelector(".tasks-wrapper");
 const addTaskElement = document.querySelector(".add-task-bttn");
-let switchActive = document.querySelectorAll(".active-bttn");
+
+const switchActive = document.querySelectorAll(".active-bttn");
 
 /*--------DARK MODE--------*/
 const userThemePreference = localStorage.getItem("theme");
