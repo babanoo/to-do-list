@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"> 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="font-family body-bg">
+
+    <header class="bg-img">
+        <div class="container header">
+            <div class="flex-between align-item-center">
+            <h1 class="heading">TODO</h1>
+            <button class="cursor-pointer button-base dark-bttn bttn-bg"></button>
+        </div>
+
+        <div class="form flex-start bg-white dark-bg">
+            <i class="bi bi-plus-circle hover-text-color text-gray color-dark-gray" id="add"></i>
+            <button class="add-task-bttn cursor-pointer button-base text-gray color-dark-gray">Creat a new task...</button>
+        </div>
+
+        <div class="card bg-white dark-bg overflow-y-auto">
+         <div class="tasks-wrapper"></div>
+
+         <div class="flex-between">
+           <p class="text-gray color-dark-gray"><span class="incompleted-items">0</span>items left</p>
+
+           <div>
+            <button class="button-base cursor-pointer hover-text-color text-gray active color-dark-gray active-bttn all-tasks">All</button>
+            <button class="button-base cursor-pointer hover-text-color text-gray color-dark-gray active-bttn active-tasks">Active</button>
+            <button class="button-base cursor-pointer hover-text-color text-gray color-dark-gray active-bttn completed-tasks">Completed</button>
+           </div>
+
+           <button class="button-base cursor-pointer hover-text-color text-gray color-dark-gray active-bttn clear-completed">Clear Completed</button>
+          </div>
+
+         </div>
+        </div>
+    </header>
+    <script src="./script.js"></script>
+</body>
+</html>
