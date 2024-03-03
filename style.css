@@ -29,6 +29,7 @@
   .flex-start {
      display: flex;
      justify-content: flex-start;
+     align-items: flex-start;
      gap: 10px;
   }
   
@@ -98,15 +99,16 @@
 
 .task-content {
     color: var(--black);
-    font-size: 16px;
+    font-size: 18px;
 }
 
-.hidden {
-    display: none;
+.bi-pencil, .bi-x {
+    color: var(--white);
 }
 
-.task-list:hover .hidden{
-   display: block;
+.task-list:hover .bi-pencil, 
+.task-list:hover .bi-x{
+   color: var(--gray);
 }
 
 .completed {
@@ -160,12 +162,9 @@
     border-radius: 10px;
 }
 
-.bi-plus-circle  {
-     font-size: 20px;
-}
-
 .bi {
     padding-right: 5px;
+    font-size: 20px;
 }
 
 .add-task-bttn {

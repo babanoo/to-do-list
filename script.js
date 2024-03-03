@@ -82,7 +82,7 @@ function renderTasks(task) {
 
     taskList.classList.add(
       "task-list",
-      "flex-between",
+      "flex-start",
       "cursor-pointer",
       "font-family"
     );
@@ -108,21 +108,12 @@ function renderTasks(task) {
       "cursor-pointer",
       "bi",
       "bi-pencil",
-      "button-base",
-      "hidden",
-      "text-gray"
+      "button-base"
     );
 
     const deleteButton = document.createElement("button");
     taskList.appendChild(deleteButton);
-    deleteButton.classList.add(
-      "cursor-pointer",
-      "bi",
-      "bi-x",
-      "button-base",
-      "hidden",
-      "text-gray"
-    );
+    deleteButton.classList.add("cursor-pointer", "bi", "bi-x", "button-base");
 
     tasksWrapper.prepend(taskList);
   });
@@ -137,7 +128,7 @@ function createNewTask(taskText) {
 
   tasks.push(newTask);
   renderTasks(tasks);
-  filterTasksEl(filterType);
+  //filterTasksEl(filterType);
   addTaskToLocalStorage(tasks);
 }
 
