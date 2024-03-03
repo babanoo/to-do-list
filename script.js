@@ -8,7 +8,10 @@ const darkText = document.querySelectorAll(".color-dark-gray");
 
 const tasksWrapper = document.querySelector(".tasks-wrapper");
 const addTaskElement = document.querySelector(".add-task-bttn");
-
+const allTasks = document.querySelector("#all");
+const activeTasks = document.querySelector("#active");
+const completedTasks = document.querySelector("#completed");
+const countUncompleted = document.querySelector(".uncompleted-items");
 const switchActive = document.querySelectorAll(".active-bttn");
 
 /*--------DARK MODE--------*/
@@ -41,7 +44,7 @@ dark.addEventListener("click", () => {
 });
 
 /*---------ADD TASKS--------*/
-let tasks = JSON.parse(localStorage.getItem("tasksList")) || [
+let tasks = JSON.parse(localStorage.getItem("task")) || [
   {
     id: "t4",
     title: "task four",
@@ -69,6 +72,14 @@ function renderTasks(task) {
   tasksWrapper.innerHTML = "";
   task.forEach((task) => {
     const taskList = document.createElement("div");
+    if (task.completed) {
+      taskList.classList.add("completed");
+    }
+
+    taskList.addEventListener("click", () => {
+      taskList.classList.toggle("completed");
+    });
+
     taskList.classList.add(
       "task-list",
       "flex-between",
@@ -126,11 +137,40 @@ function createNewTask(taskText) {
 
   tasks.push(newTask);
   renderTasks(tasks);
+  filterTasksEl(filterType);
   addTaskToLocalStorage(tasks);
 }
 
+function filterTasksEl(filterType) {
+  let filterLists = [];
+
+  switch (filterType) {
+    case "all":
+      filterLists = tasks;
+      break;
+    case "active":
+      filterLists = tasks.filter(function (task) {
+        return !task.completed;
+      });
+      break;
+    case "completed":
+      filterLists = tasks.filter(function (task) {
+        return task.completed;
+      });
+      break;
+    case "countUncompleted":
+      const countUncompletedTasks = tasks.filter(function (task) {
+        return !task.completed;
+      });
+      countUncompleted.innerText = countUncompletedTasks.length;
+      break;
+  }
+
+  renderTasks(filterLists);
+}
+
 function addTaskToLocalStorage(tasks) {
-  window.localStorage.setItem("tasksList", JSON.stringify(tasks));
+  window.localStorage.setItem("task", JSON.stringify(tasks));
 }
 
 addTaskElement.addEventListener("click", () => {
@@ -141,6 +181,16 @@ addTaskElement.addEventListener("click", () => {
     alert("😮 Task cannot be empty!");
     return false;
   }
+});
+
+allTasks.addEventListener("click", () => {
+  filterTasksEl("all");
+});
+activeTasks.addEventListener("click", () => {
+  filterTasksEl("active");
+});
+completedTasks.addEventListener("click", () => {
+  filterTasksEl("completed");
 });
 
 switchActive.forEach((bttnEl) => {
