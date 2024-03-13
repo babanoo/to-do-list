@@ -13,6 +13,7 @@ const activeTasks = document.querySelector("#active");
 const completedTasks = document.querySelector("#completed");
 const countUncompleted = document.querySelector(".uncompleted-items");
 const switchActive = document.querySelectorAll(".active-bttn");
+const clearCompleted = document.querySelector(".clear-completed");
 
 /*--------DARK MODE--------*/
 const userThemePreference = localStorage.getItem("theme");
@@ -44,7 +45,7 @@ dark.addEventListener("click", () => {
 });
 
 /*---------ADD TASKS--------*/
-let tasks = JSON.parse(localStorage.getItem("task")) || [
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [
   {
     id: "t4",
     title: "task four",
@@ -72,12 +73,16 @@ function renderTasks(task) {
   tasksWrapper.innerHTML = "";
   task.forEach((task) => {
     const taskList = document.createElement("div");
+
     if (task.completed) {
       taskList.classList.add("completed");
     }
 
-    taskList.addEventListener("click", () => {
+    taskList.addEventListener("click", function () {
+      task.completed = !task.completed;
       taskList.classList.toggle("completed");
+      addTaskToLocalStorage();
+      uncompletedItems();
     });
 
     taskList.classList.add(
@@ -85,16 +90,6 @@ function renderTasks(task) {
       "flex-start",
       "cursor-pointer",
       "font-family"
-    );
-
-    const checkedBttn = document.createElement("button");
-    taskList.appendChild(checkedBttn);
-    checkedBttn.classList.add(
-      "bi",
-      "bi-circle",
-      "cursor-pointer",
-      "button-base",
-      "text-gray"
     );
 
     const taskContent = document.createElement("p");
@@ -110,13 +105,16 @@ function renderTasks(task) {
       "bi-pencil",
       "button-base"
     );
+    editeButton.addEventListener("click", () => editTask(task));
 
     const deleteButton = document.createElement("button");
     taskList.appendChild(deleteButton);
     deleteButton.classList.add("cursor-pointer", "bi", "bi-x", "button-base");
+    deleteButton.addEventListener("click", () => deleteTask(taskList, task.id));
 
     tasksWrapper.prepend(taskList);
   });
+  uncompletedItems();
 }
 
 function createNewTask(taskText) {
@@ -128,40 +126,69 @@ function createNewTask(taskText) {
 
   tasks.push(newTask);
   renderTasks(tasks);
-  //filterTasksEl(filterType);
   addTaskToLocalStorage(tasks);
+  filterTasks("completed");
 }
 
-function filterTasksEl(filterType) {
-  let filterLists = [];
+function addTaskToLocalStorage() {
+  window.localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
+function uncompletedItems() {
+  const CountItemsUncompleted = tasks.filter((task) => !task.completed).length;
+  countUncompleted.textContent = CountItemsUncompleted;
+}
+
+function editTask(task) {
+  const newText = prompt("Edit task:", task.title);
+  if (newText !== null && newText.trim() !== "") {
+    tasks = tasks.map((taskEL) => {
+      if (taskEL.id === task.id) {
+        return { ...taskEL, title: newText.trim(), completed: task.completed };
+      }
+      return taskEL;
+    });
+  }
+  addTaskToLocalStorage();
+  renderTasks(tasks);
+}
+
+function deleteTask(taskElement, taskId) {
+  const confirmDelete = confirm("Are you sure you want to delete this task?");
+  if (confirmDelete) {
+    tasks = tasks.filter((task) => task.id !== taskId);
+    addTaskToLocalStorage();
+    taskElement.remove();
+    uncompletedItems();
+  }
+}
+
+function removeActive() {
+  switchActive.forEach((bttnEl) => {
+    bttnEl.classList.remove("active");
+    this.classList.add("active");
+  });
+}
+
+function filterTasks(filterType) {
+  let filteredTasks;
   switch (filterType) {
-    case "all":
-      filterLists = tasks;
-      break;
     case "active":
-      filterLists = tasks.filter(function (task) {
-        return !task.completed;
-      });
+      filteredTasks = tasks.filter((task) => !task.completed);
       break;
     case "completed":
-      filterLists = tasks.filter(function (task) {
-        return task.completed;
-      });
+      filteredTasks = tasks.filter((task) => task.completed);
       break;
-    case "countUncompleted":
-      const countUncompletedTasks = tasks.filter(function (task) {
-        return !task.completed;
-      });
-      countUncompleted.innerText = countUncompletedTasks.length;
-      break;
+    default:
+      filteredTasks = tasks;
   }
-
-  renderTasks(filterLists);
+  renderTasks(filteredTasks);
 }
 
-function addTaskToLocalStorage(tasks) {
-  window.localStorage.setItem("task", JSON.stringify(tasks));
+function clearCompletedTasks() {
+  tasks = tasks.filter((task) => !task.completed);
+  addTaskToLocalStorage();
+  renderTasks(tasks);
 }
 
 addTaskElement.addEventListener("click", () => {
@@ -174,23 +201,11 @@ addTaskElement.addEventListener("click", () => {
   }
 });
 
-allTasks.addEventListener("click", () => {
-  filterTasksEl("all");
-});
-activeTasks.addEventListener("click", () => {
-  filterTasksEl("active");
-});
-completedTasks.addEventListener("click", () => {
-  filterTasksEl("completed");
-});
-
 switchActive.forEach((bttnEl) => {
   bttnEl.addEventListener("click", removeActive);
 });
 
-function removeActive() {
-  switchActive.forEach((bttnEl) => {
-    bttnEl.classList.remove("active");
-    this.classList.add("active");
-  });
-}
+allTasks.addEventListener("click", () => filterTasks("all"));
+activeTasks.addEventListener("click", () => filterTasks("active"));
+completedTasks.addEventListener("click", () => filterTasks("completed"));
+clearCompleted.addEventListener("click", clearCompletedTasks);
