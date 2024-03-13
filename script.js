@@ -4,7 +4,6 @@ const dark = document.querySelector(".dark-bttn");
 const backGroundImg = document.querySelector(".bg-img");
 const darkBackGround = document.querySelectorAll(".dark-bg");
 const bodyBackGround = document.querySelector(".body-bg");
-const darkText = document.querySelectorAll(".color-dark-gray");
 
 const tasksWrapper = document.querySelector(".tasks-wrapper");
 const addTaskElement = document.querySelector(".add-task-bttn");
