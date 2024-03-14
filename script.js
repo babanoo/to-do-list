@@ -1,8 +1,7 @@
 "use strict";
 
 const dark = document.querySelector(".dark-bttn");
-const backGroundImg = document.querySelector(".bg-img");
-const darkBackGround = document.querySelectorAll(".dark-bg");
+const darkMode = document.querySelectorAll(".dark-moode");
 const bodyBackGround = document.querySelector(".body-bg");
 
 const tasksWrapper = document.querySelector(".tasks-wrapper");
@@ -15,17 +14,17 @@ const switchActive = document.querySelectorAll(".active-bttn");
 const clearCompleted = document.querySelector(".clear-completed");
 
 /*--------DARK MODE--------*/
-const userThemePreference = localStorage.getItem("theme");
+const userThemePreference = localStorage.getItem("darkTheme");
 
 function toggleDarkTheme() {
   bodyBackGround.classList.toggle("dark-theme");
 
-  darkText.forEach((el) => {
-    el.classList.toggle("bg-dark");
-  });
+  //darkText.forEach((el) => {
+  // el.classList.toggle("bg-dark");
+  //});
 
-  darkBackGround.forEach((el) => {
-    el.classList.toggle("bg-dark");
+  darkMode.forEach((el) => {
+    el.classList.toggle("dark-mode");
   });
 }
 
@@ -40,7 +39,7 @@ dark.addEventListener("click", () => {
     ? "dark"
     : "light";
 
-  localStorage.setItem("theme", currentTheme);
+  localStorage.setItem("darkTheme", currentTheme);
 });
 
 /*---------ADD TASKS--------*/
