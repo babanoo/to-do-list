@@ -172,20 +172,21 @@
     font-size: 18px;
 }
 
-.bi-pencil, .bi-x {
+.bi-pencil, .bi-x  {
     color: var(--white);
 }
 
-.dark-mode .bi-pencil, .bi-x {
+.dark-mode .bi {
     color: var(--dark-bg);
 }
 
-.task-list:hover .bi-pencil, 
-.task-list:hover .bi-x{
+
+
+.task-list:hover .bi{
    color: var(--gray);
 }
 
-.dark-mode .task-list:hover .bi-pencil, .task-list:hover .bi-x{
+.dark-mode .task-list:hover .bi{
    color: var(--dark-text);
 }
 
