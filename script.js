@@ -126,6 +126,7 @@ function createNewTask(taskText) {
   renderTasks(tasks);
   addTaskToLocalStorage(tasks);
   filterTasks("completed");
+  filterTasks("all");
 }
 
 function addTaskToLocalStorage() {
