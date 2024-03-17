@@ -180,8 +180,6 @@
     color: var(--dark-bg);
 }
 
-
-
 .task-list:hover .bi{
    color: var(--gray);
 }

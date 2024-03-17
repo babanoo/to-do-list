@@ -19,10 +19,6 @@ const userThemePreference = localStorage.getItem("darkTheme");
 function toggleDarkTheme() {
   bodyBackGround.classList.toggle("dark-theme");
 
-  //darkText.forEach((el) => {
-  // el.classList.toggle("bg-dark");
-  //});
-
   darkMode.forEach((el) => {
     el.classList.toggle("dark-mode");
   });
